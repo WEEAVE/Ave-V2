@@ -8,29 +8,27 @@
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-attachment: fixed;
-                color: white;
             }
             .ave {
                 position: relative;
                 width: 200px;
                 height: 200px;
                 top: auto;
-                left: 42%;
+                left: 36%;
             }
             .banner {
                 width: 100%;
-                background-color: white;
-            }
-            .pagedevtxt {
-                font-size: 32px;
-                font-family: Monospace;
+                height: 200px;
+                background: linear-gradient(to right, transparent,white, transparent);
+                position: absolute;
+                top: 5px;
             }
             .txtpage1 {
                 position: relative;
                 width: 100%;
-                background: linear-gradient(to right, blue, transparent);
+                background-color: lightblue;
                 border-radius: 20px;
-                border: none;
+                color: black;
                 padding-left: 10px;
                 padding-top: 5px;
                 padding-bottom: 5px;
@@ -38,42 +36,38 @@
             }
             .about_tuvg {
                 position: relative;
-                width: 40%;
-                left: 60%;
-                border: 3px solid;
-                background: linear-gradient(to left, green, blue);
-                padding-left: 10px;
-                padding-top: 5px;
-                padding-bottom: 5px;
-                font-size: 10px;
-                border-radius: 20px;
-            }
-            .about_bpd {
-                position: relative;
-                width: 65%;
-                border: 3px solid;
-                background: linear-gradient(to left, yellow, green);
+                width: 50%;
+                left: 50%;
+                background-color: lightyellow;
                 padding-left: 10px;
                 padding-top: 5px;
                 padding-bottom: 5px;
                 font-size: 15px;
                 border-radius: 20px;
                 color: black;
-                border-color: white;
+            }
+            .about_bpd {
+                position: relative;
+                width: 65%;
+                background-color: lightpink;
+                padding-left: 10px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                font-size: 15px;
+                border-radius: 20px;
+                color: black;
             }
             .about_wdd {
                 position: relative;
                 width: 60%;
                 left: 40%;
-                border: 3px solid;
-                background: linear-gradient(to right, red, yellow);
+                background-color: lightgreen;
                 padding-left: 10px;
                 padding-top: 5px;
                 padding-bottom: 5px;
                 font-size: 15px;
                 border-radius: 20px;
                 color: black;
-                border-color: white;
             }
             .contact_usp1 {
                 width: 100%;
@@ -98,7 +92,7 @@
                 font-size: 20px;
                 font-weight: bold;
                 cursor: pointer;
-                color: white;
+                color: black;
                 transition: 1s ease;
             }
             .wabutt {
@@ -138,11 +132,67 @@
                 transition: 1s ease;
                 color: black;
             }
-</style>
+            #menublack {
+                position: absolute;
+                border-radius: 50%;
+                background-color: black;
+                right: 10px;
+                top: 20px;
+                width: 100px;
+                height: 100px;
+                cursor: pointer;
+            }
+            
+            #menuwhite {
+                position: absolute;
+                border-radius: 50%;
+                background-color: white;
+                right: 35px;
+                top: 45px;
+                width: 50px;
+                height: 50px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+            
+            /* animasi buka (jadi kotak) */
+            @keyframes scalewhite-open {
+                from { scale: 100%; border-radius: 50%; }
+                to   {scale: 150%; border-radius: 0%; }
+            }
+            
+            @keyframes scaleblack-open {
+                from { scale: 100%; }
+                to   { scale: 0%; }
+            }
+            
+            /* animasi tutup (jadi lingkaran lagi) */
+            @keyframes scalewhite-close {
+                from { scale: 150%; border-radius: 0%; }
+                to   { scale: 100%; border-radius: 50%; }
+            }
+            
+            @keyframes scaleblack-close {
+                from { scale: 0%; }
+                to   { scale: 100%; }
+            }
+            
+            /* class animasi */
+            .scaleblack-open { animation: scaleblack-open 0.5s forwards; }
+            .scalewhite-open { animation: scalewhite-open 0.5s forwards; }
+            
+            .scaleblack-close { animation: scaleblack-close 0.5s forwards; }
+            .scalewhite-close { animation: scalewhite-close 0.5s forwards; }
         </style>
     </head>
     <body>
+        <div class="banner"></div>
         <img src="AVE.png" alt="logo AVE" class="ave">
+        <div id="menublack"></div>
+        <div id="menuwhite"></div>
         <div id="page1">
              <div class="txtpage1">
                  selamat datang di website ave.<br>
@@ -223,6 +273,34 @@
         <!--scripting-->
        
         <script>
+            const black = document.getElementById("menublack");
+            const white = document.getElementById("menuwhite");
+            
+            let open = false;
+            
+            function toggleMenu() {
+                // reset animasi biar bisa diulang
+                black.classList.remove("scaleblack-open", "scaleblack-close");
+                white.classList.remove("scalewhite-open", "scalewhite-close");
+            
+                void black.offsetWidth; // reflow (hack supaya animasi ulang)
+                void white.offsetWidth;
+            
+                if (!open) {
+                    // buka → hitam mengecil, putih membesar jadi kotak, inner muncul
+                    black.classList.add("scaleblack-open");
+                    white.classList.add("scalewhite-open");
+                } else {
+                    // tutup → hitam membesar lagi, putih mengecil jadi bulat, inner hilang
+                    black.classList.add("scaleblack-close");
+                    white.classList.add("scalewhite-close");
+                }
+                open = !open;
+            }
+            
+            black.addEventListener("click", toggleMenu);
+            white.addEventListener("click", toggleMenu);
+            
         function showbutt() {
             var un = document.getElementsByName("un")[0].value.trim();
             var pw = document.getElementsByName("pw")[0].value.trim();
