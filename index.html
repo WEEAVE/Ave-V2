@@ -1,368 +1,364 @@
 <!DOCTYPE HTML>
-<html>
-    <head>
-        <title>AVE Studio</title>
-        <style>
-            body {
-                background-image: url('bgweb.jpg');
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-            }
-            .ave {
-                position: relative;
-                width: 200px;
-                height: 200px;
-                top: auto;
-                left: 36%;
-            }
-            .banner {
-                width: 100%;
-                height: 200px;
-                background: linear-gradient(to right, transparent,white, transparent);
-                position: absolute;
-                top: 5px;
-            }
-            .txtpage1 {
-                position: relative;
-                width: 100%;
-                background-color: lightblue;
-                border-radius: 20px;
+<html>  
+    <head>  
+        <title>AVE Studio</title>  
+        <style>  
+            body {  
+                background-image: url('bgweb.jpg');  
+                background-size: cover;  
+                background-repeat: no-repeat;  
+                background-attachment: fixed;  
+            }  
+            .ave {  
+                position: relative;  
+                width: 200px;  
+                height: 200px;  
+                top: auto;  
+                left: 36%;  
+            }  
+            .banner {  
+                width: 100%;  
+                height: 200px;  
+                background: linear-gradient(to right, transparent,white, transparent);  
+                position: absolute;  
+                top: 5px;  
+            }  
+            .txtpage1 {  
+                position: relative;  
+                width: 100%;  
+                background-color: lightblue;  
+                border-radius: 20px;  
+                color: black;  
+                padding-left: 10px;  
+                padding-top: 5px;  
+                padding-bottom: 5px;  
+                font-size: 25px;  
+            }  
+            .about_tuvg {  
+                position: relative;  
+                width: 50%;  
+                left: 50%;  
+                background-color: lightyellow;  
+                padding-left: 10px;  
+                padding-top: 5px;  
+                padding-bottom: 5px;  
+                font-size: 15px;  
+                border-radius: 20px;  
+                color: black;  
+            }  
+            .about_bpd {  
+                position: relative;  
+                width: 65%;  
+                background-color: lightpink;  
+                padding-left: 10px;  
+                padding-top: 5px;  
+                padding-bottom: 5px;  
+                font-size: 15px;  
+                border-radius: 20px;  
+                color: black;  
+            }  
+            .about_wdd {  
+                position: relative;  
+                width: 60%;  
+                left: 40%;  
+                background-color: lightgreen;  
+                padding-left: 10px;  
+                padding-top: 5px;  
+                padding-bottom: 5px;  
+                font-size: 15px;  
+                border-radius: 20px;  
                 color: black;
-                padding-left: 10px;
-                padding-top: 5px;
-                padding-bottom: 5px;
-                font-size: 25px;
-            }
-            .about_tuvg {
-                position: relative;
-                width: 50%;
-                left: 50%;
-                background-color: lightyellow;
-                padding-left: 10px;
-                padding-top: 5px;
-                padding-bottom: 5px;
-                font-size: 15px;
-                border-radius: 20px;
-                color: black;
-            }
-            .about_bpd {
-                position: relative;
-                width: 65%;
-                background-color: lightpink;
-                padding-left: 10px;
-                padding-top: 5px;
-                padding-bottom: 5px;
-                font-size: 15px;
-                border-radius: 20px;
-                color: black;
-            }
-            .about_wdd {
-                position: relative;
-                width: 60%;
-                left: 40%;
-                background-color: lightgreen;
-                padding-left: 10px;
-                padding-top: 5px;
-                padding-bottom: 5px;
-                font-size: 15px;
-                border-radius: 20px;
-                color: black;
-            }
-            .contact_usp1 {
-                width: 100%;
-                background: linear-gradient(to bottom, transparent, transparent, #1e1e1e, black);
-                border-radius: 20px;
-                text-align: center;
-                color: white;
-                padding: 30px 0;
-            }
-            .contact_buttons {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 20px;
-                margin-top: 20px;
-            }
-            .contact_buttons div {
-                width: 200px;
-                height: 40px;
-                line-height: 40px;
-                border-radius: 20px;
-                font-size: 20px;
-                font-weight: bold;
-                cursor: pointer;
-                color: black;
-                transition: 1s ease;
-            }
-            .wabutt {
-                background-color: green;
-            }
-            .emailbutt {
-                background-color: red;
-            }
-            .dcbutt {
-                background-color: skyblue;
-            }
-            .igbutt {
-                background-color: pink;
-                color: black;
-            }
-             .wabutt:hover {
-                background-color: lightgreen;
-                transform: scale(1.1);
-                transition: 1s ease;
-                color: black;
-            }
-            .emailbutt:hover {
-                background-color: yellow;
-                transform: scale(1.1);
-                transition: 1s ease;
-                color: black;
-            }
-            .dcbutt:hover {
-                background-color: lightblue;
-                transform: scale(1.1);
-                transition: 1s ease;
-                color: black;
-            }
-            .igbutt:hover {
-                background-color: hotpink;
-                transform: scale(1.1);
-                transition: 1s ease;
-                color: black;
-            }
-            #menublack {
-                position: absolute;
-                border-radius: 50%;
-                background-color: black;
-                right: 10px;
-                top: 20px;
-                width: 100px;
-                height: 100px;
-                cursor: pointer;
+            }  
+            .about_pweb {  
+                position: relative;  
+                width: 70%;
+                background-color: lightyellow;  
+                padding-left: 10px;  
+                padding-top: 5px;  
+                padding-bottom: 5px;  
+                font-size: 15px;  
+                border-radius: 20px;  
+                color: black;  
             }
             
-            #menuwhite {
-                position: absolute;
-                border-radius: 50%;
-                background-color: white;
-                right: 35px;
-                top: 45px;
-                width: 50px;
-                height: 50px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                overflow: hidden;
+            /*BATAS ABOUT*/
+            
+            .contact_usp1 {  
+                width: 100%;  
+                background: linear-gradient(to bottom, transparent, transparent, #1e1e1e, black);  
+                border-radius: 20px;  
+                text-align: center;  
+                color: white;  
+                padding: 30px 0;  
+            }  
+            .contact_buttons {  
+                display: flex;  
+                flex-wrap: wrap;  
+                justify-content: center;  
+                gap: 20px;  
+                margin-top: 20px;  
+            }  
+            .contact_buttons div {  
+                width: 200px;  
+                height: 40px;  
+                line-height: 40px;  
+                border-radius: 20px;  
+                font-size: 20px;  
+                font-weight: bold;  
+                cursor: pointer;  
+                color: black;  
+                transition: 1s ease;  
+            }  
+            .wabutt {  
+                background-color: green;  
+            }  
+            .emailbutt {  
+                background-color: red;  
+            }  
+            .dcbutt {  
+                background-color: skyblue;  
+            }  
+            .igbutt {  
+                background-color: pink;  
+                color: black;  
+            }  
+             .wabutt:hover {  
+                background-color: lightgreen;  
+                transform: scale(1.1);  
+                transition: 1s ease;  
+                color: black;  
+            }  
+            .emailbutt:hover {  
+                background-color: yellow;  
+                transform: scale(1.1);  
+                transition: 1s ease;  
+                color: black;  
+            }  
+            .dcbutt:hover {  
+                background-color: lightblue;  
+                transform: scale(1.1);  
+                transition: 1s ease;  
+                color: black;  
+            }  
+            .igbutt:hover {  
+                background-color: hotpink;  
+                transform: scale(1.1);  
+                transition: 1s ease;  
+                color: black;  
             }
-            
-            /* animasi buka (jadi kotak) */
-            @keyframes scalewhite-open {
-                from { scale: 100%; border-radius: 50%; }
-                to   {scale: 150%; border-radius: 0%; }
-            }
-            
-            @keyframes scaleblack-open {
-                from { scale: 100%; }
-                to   { scale: 0%; }
-            }
-            
-            /* animasi tutup (jadi lingkaran lagi) */
-            @keyframes scalewhite-close {
-                from { scale: 150%; border-radius: 0%; }
-                to   { scale: 100%; border-radius: 50%; }
-            }
-            
-            @keyframes scaleblack-close {
-                from { scale: 0%; }
-                to   { scale: 100%; }
-            }
-            
-            /* class animasi */
-            .scaleblack-open { animation: scaleblack-open 0.5s forwards; }
-            .scalewhite-open { animation: scalewhite-open 0.5s forwards; }
-            
-            .scaleblack-close { animation: scaleblack-close 0.5s forwards; }
-            .scalewhite-close { animation: scalewhite-close 0.5s forwards; }
-        </style>
-    </head>
-    <body>
-        <div class="banner"></div>
-        <img src="AVE.png" alt="logo AVE" class="ave">
-        <div id="menublack"></div>
-        <div id="menuwhite"></div>
-        <div id="page1">
-             <div class="txtpage1">
-                 selamat datang di website ave.<br>
-                 anda bisa melihat beberapa layanan yang kami berikan.<br>
-                 untuk saat ini kami menyediakan beberapa jasa saja.<br>
-                 untuk kedepan nya kami akan meninngkatkan kualitas dari ave studio<br>
-                 agar lebih mudah dijangkau dan website yang mudah dioperasikan<br><br>
-                 berikut adalah beberapa jasa yang kami sediakan:
-                 <ol type="A">
-                     <li>VIDEO GAMES:
-                     <ul type="disc">
-                         <li>Top Up Video Game</li>
-                     </ul>
-                     </li><br>
-                     <li>BIMBEL ONLINE:
-                     <ul type="disc">
-                         <li>bahasa pemrograman dasar</li>
-                         <li>web desain dasar</li>
-                     </ul>
-                     </li><br>
-                 </ol>
+    </style>  
+</head>  
+<body>  
+    <div class="banner"></div>  
+    <img src="AVE.png" alt="logo AVE" class="ave">
+    <div id="page1">  
+         <div class="txtpage1">  
+             selamat datang di website ave.<br>  
+             anda bisa melihat beberapa layanan yang kami berikan.<br>  
+             untuk saat ini kami menyediakan beberapa jasa saja.<br>  
+             untuk kedepan nya kami akan meninngkatkan kualitas dari ave studio<br>  
+             agar lebih mudah dijangkau dan website yang mudah dioperasikan<br><br>  
+             berikut adalah beberapa jasa yang kami sediakan:  
+             <ol type="A">  
+                 <li>VIDEO GAMES:  
+                 <ul type="disc">  
+                     <li>Top Up Video Game</li>  
+                 </ul>  
+                 </li><br>  
+                 <li>BIMBEL ONLINE:  
+                 <ul type="disc">  
+                     <li>bahasa Pemrograman Dasar</li>  
+                     <li>Web Desain Dasar</li>  
+                 </ul>  
+                 </li><br>
+                 <li>OTHHER:
+                 <ul type="disc">
+                     <li>Pembuatan WebSite</li>
+                 </ul>
+                 </li>
+             </ol>  
+         </div>  
+         <br>  
+         <div class="about_tuvg">  
+             <h2>VIDEO GAME TOP-UP</h2>  
+             kami menyediakan top-up di beberapa video game.<br>  
+             seperti <b>MLBB, PUBGM, FF/MAX, ROBLOX</b> dan sebagainya...<br>  
+             kami akan memeberikan kepercayaan kepada pelanggan<br>  
+             tanpa memberikan dampak negatif sedikitpun.<br>  
+             kami memiliki prinsip jujur dan penanggung jawab jika ada masalah yang berasal dari store kami.<br>  
+             dan kami juga menjamin <i style="color: lightgreen;">100%</i> aman dan terpercaya  
+         </div><br>  
+         <div class="about_bpd">  
+             <h3>BAHASA PEMROGRAMAN DASAR</h3>  
+             tidak hanya tentang video game.<br>  
+             kami juga ingin memberikan pendidikan kepada semua orang tanpa terkecuali.<br>  
+             tanpa minnimal usia, dan juga tanpa batasan usia.<br>  
+             karena tidak ada kata terlambat dalam menuntut ilmu.<br>  
+             karena dari itu, kami juga menyediakan bimbel bahasa pemrograman secara online<br>  
+             dengan berbagai metode. seperti:<br>  
+            <b>melalui chat, call, google meet, voice discord</b> dan masih banyak lagi.<br>  
+            kami menjamin kemudahan dalam mengajar dan kenyamanan anda saat belajar.<br>  
+            kita mengajar dengan asik daan kami usahakan tidak akan membosankan.<br>  
+            dan pastinya kami akan mengajar satu per satu materi hingga benar-benar faham tanpa terburu buru.<br>  
+            <h3>APA YANG AKAN DIPELAJARI?</h3>  
+            kita akan mengajari bahasa pemrograman dari nol(0)<br>  
+            dari, apa itu bahasa pemrograman, logika, aritmatika, dan lain-lainnya.<br>  
+         </div><br>  
+         <div class="about_wdd">  
+             <h1>WEB DESAIN DASAR</h1>  
+             hampir sama dengan bahasa pemrograman dasar, di bimbel ini hanya saja menggunakan bahasa yang berbeda<br>  
+             jadi, bahasa di dalam dunia pemrograman itu tidak cuma satu atau dua saja.<br>  
+             melainkan ada banyak sekali bahasa pemrograman.<br>  
+             dan yang kita gunakan untuk mengajar adalah bahasa pemrograman yang paling mudahh difahami.<br>  
+             agar, disaat digunakan untuk menjelaskan tidak perlu menggunakan pembahasan yang rumit.<br>  
+             <h3>APA ITU BIMBEL WEB DESAIN?</h3>  
+             kami akan mengajari cara membuat web dan hal-hal seputar web.<br>  
+             tidak cuma bahasa pemrograman saja, tapii juga hal-hal lain.<br>  
+         </div><br>
+         <div class="about_pweb">
+             <h1>PEMBUATAN WEBSITE</h1>
+             ada beberapa orang yang lebih memilih cara mudah, dan kami memahami itu.<br>
+             oleh karena itu, kami juga menyediakan pembuatan WebSite.<br>
+             kami menerima segala macam jenis keinginan website anda:<br>
+             <b>BISNIS, BELAJAR/MENGAJAR, ARTIKEL,</b> dan masih banyak lagi.<br>
+             <h3>KEUNTUNGAN:</h3>
+             <ul type="disc">
+                 <li>tidak perlu ribet-ribet programming</li>
+                 <li>bisa update kapan saja tanpa biaya tambahan</li>
+                 <li>tanpa batasan update</li>
+                 <li>bisa diakses siapa saja</li>
+             </ul>
+             <h3>KEKURANGAN:</h3>
+             saat ini kami masih belum bisa mengembangkan WebSite yang bisa menerima masukan dari luar.<br>
+             <u>maksudnya:</u>website yang kita buat memanglah online dan bisa diakses semua orang.<br>
+             tapi, seumpama untuk menerima data yang masuk secara online kami belum bisa.<br>
+             kami hanya bisa mengarahkan pengguna WebSite ke halaman/apk tertentu.
              </div>
-             <br>
-             <div class="about_tuvg">
-                 <h2>VIDEO GAME TOP-UP</h2>
-                 kami menyediakan top-up di beberapa video game.<br>
-                 seperti <b>MLBB, PUBGM, FF/MAX, ROBLOX</b> dan sebagainya...<br>
-                 kami akan memeberikan kepercayaan kepada pelanggan<br>
-                 tanpa memberikan dampak negatif sedikitpun.<br>
-                 kami memiliki prinsip jujur dan penanggung jawab jika ada masalah yang berasal dari store kami.<br>
-                 dan kami juga menjamin <i style="color: lightgreen;">100%</i> aman dan terpercaya
-             </div><br>
-             <div class="about_bpd">
-                 <h3>BAHASA PEMROGRAMAN DASAR</h3>
-                 tidak hanya tentang video game.<br>
-                 kami juga ingin memberikan pendidikan kepada semua orang tanpa terkecuali.<br>
-                 tanpa minnimal usia, dan juga tanpa batasan usia.<br>
-                 karena tidak ada kata terlambat dalam menuntut ilmu.<br>
-                 karena dari itu, kami juga menyediakan bimbel bahasa pemrograman secara online<br>
-                 dengan berbagai metode. seperti:<br>
-                <b>melalui chat, call, google meet, voice discord</b> dan masih banyak lagi.<br>
-                kami menjamin kemudahan dalam mengajar dan kenyamanan anda saat belajar.<br>
-                kita mengajar dengan asik daan kami usahakan tidak akan membosankan.<br>
-                dan pastinya kami akan mengajar satu per satu materi hingga benar-benar faham tanpa terburu buru.<br>
-                <h3>APA YANG AKAN DIPELAJARI?</h3>
-                kita akan mengajari bahasa pemrograman dari nol(0)<br>
-                dari, apa itu bahasa pemrograman, logika, aritmatika, dan lain-lainnya.<br>
-             </div><br>
-             <div class="about_wdd">
-                 <h1>WEB DESAIN DASAR</h1>
-                 hampir sama dengan bahasa pemrograman dasar, di bimbel ini hanya saja menggunakan bahasa yang berbeda<br>
-                 jadi, bahasa di dalam dunia pemrograman itu tidak cuma satu atau dua saja.<br>
-                 melainkan ada banyak sekali bahasa pemrograman.<br>
-                 dan yang kita gunakan untuk mengajar adalah bahasa pemrograman yang paling mudahh difahami.<br>
-                 agar, disaat digunakan untuk menjelaskan tidak perlu menggunakan pembahasan yang rumit.<br>
-                 <h3>APA ITU BIMBEL WEB DESAIN?</h3>
-                 kami akan mengajari cara membuat web dan hal-hal seputar web.<br>
-                 tidak cuma bahasa pemrograman saja, tapii juga hal-hal lain.<br>
-             </div><br><br>
-             <div class="contact_usp1">
-    <h1 style="color: black;">HUBUNGI KAMI</h1>
-    informasi lebih lanjut: DM kami!
-    <div class="contact_buttons">
-        <div class="wabutt" onclick="wa()">WHATSAPP</div>
-        <div class="emailbutt" onclick="email()">EMAIL</div>
-        <div class="dcbutt" onclick="dc()">DISCORD</div>
-        <div class="igbutt" onclick="ig()">INSTAGRAM</div>
-    </div>
-</div>
-
-        </div>
-        <div id="pagedev" style="display: none;">
-            <p align="center">
-                Coming Soon
-            </p>
-        </div>
-
-        <!--scripting-->
-       
-        <script>
-            const black = document.getElementById("menublack");
-            const white = document.getElementById("menuwhite");
-            
-            let open = false;
-            
-            function toggleMenu() {
-                // reset animasi biar bisa diulang
-                black.classList.remove("scaleblack-open", "scaleblack-close");
-                white.classList.remove("scalewhite-open", "scalewhite-close");
-            
-                void black.offsetWidth; // reflow (hack supaya animasi ulang)
-                void white.offsetWidth;
-            
-                if (!open) {
-                    // buka → hitam mengecil, putih membesar jadi kotak, inner muncul
-                    black.classList.add("scaleblack-open");
-                    white.classList.add("scalewhite-open");
-                } else {
-                    // tutup → hitam membesar lagi, putih mengecil jadi bulat, inner hilang
-                    black.classList.add("scaleblack-close");
-                    white.classList.add("scalewhite-close");
-                }
-                open = !open;
-            }
-            
-            black.addEventListener("click", toggleMenu);
-            white.addEventListener("click", toggleMenu);
-            
-        function showbutt() {
-            var un = document.getElementsByName("un")[0].value.trim();
-            var pw = document.getElementsByName("pw")[0].value.trim();
-
-            if (un !== "" && pw !== "") {
-                document.getElementById("buttlog").style.display = "block";
-                document.getElementById("buttreset").style.display = "block";
-            } else {
-                document.getElementById("buttlog").style.display = "none";
-                document.getElementById("buttreset").style.display = "none";
-            }
-        }
-        
-        function submitdev() {
-            var usnm = document.getElementsByName("un")[0].value.trim();
-            var pass = document.getElementsByName("pw")[0].value.trim();
-            var usnmbenar = 'kakikanan';
-            var passbenar = 'devmod1234';
-            
-            if (usnm === usnmbenar && pass === passbenar) {
-                document.getElementById('pagedev').style.display = "block";
-                document.getElementById('page1').style.display = "none";
-            } else if (usnm !== usnmbenar) {
-                alert('username salah');
-            } else if (pass !== passbenar) {
-                alert('password salah');
-            }
-        }
-        function resetdev() {
-        // Bersihkan semua input
-        document.getElementsByName("un")[0].value = "";
-        document.getElementsByName("pw")[0].value = "";
-
-        // Sembunyikan tombol login & reset
-        document.getElementById("buttlog").style.display = "none";
-        document.getElementById("buttreset").style.display = "none";
-
-        // Kalau mau panggil function render
-        render();
-
-        // Contoh render simple (biar nggak error kalau dipanggil)
-        function render() {
-            alert('reset button telah membersihkan input anda.')
-        }
-        }
-        function tutupdevlog() {
-            document.getElementsByClassName('arealogindev')[0].style.display = 'none';
-            document.getElementById('closedevlog').style.display = 'none';
-            document.getElementById('devlogabout').style.display = 'none';
-        }
-        function wa() {
-            window.location.href = "https://wa.me/+6285881330296?text=Halo%20saya%20tertarik%20dengan%20produk%20Anda";
-        }
-        function email() {
-            window.location.href = "mailto:contactavestudiocs@gmail.com?subject=Halo%20Saya%20tertarik&body=Halo,%20saya%20tertarik%20dengan%20produk%20Anda.";
-        }
-        function dc() {
-            window.location.href = "https://discord.gg/VWe5vZSx";
-        }
-        function ig() {
-            window.location.href = "https://www.instagram.com/ave.studio_01?igsh=MWRub2N6NDExZmt1Zw==https://www.instagram.com/ave.studio_01?igsh=MWRub2N6NDExZmt1Zw==";
-        }
-        </script>
-    </body>
+         
+         <!--BARIS TERAKHIR (CODE HANYA BOLEH DIATAS)-->
+         
+         <br><br>  
+         <div class="contact_usp1">  
+            <h1 style="color: black;">HUBUNGI KAMI</h1>  
+            informasi lebih lanjut: DM kami!  
+            <div class="contact_buttons">  
+                <div class="wabutt" onclick="wa()">WHATSAPP</div>  
+                <div class="emailbutt" onclick="email()">EMAIL</div>  
+                <div class="dcbutt" onclick="dc()">DISCORD</div>  
+                <div class="igbutt" onclick="ig()">INSTAGRAM</div>  
+            </div>  
+        </div>  
+    </div> 
+    
+    <!--scripting-->  
+     
+    <script>  
+        const black = document.getElementById("menublack");  
+        const white = document.getElementById("menuwhite");  
+      
+        function menu0() {  
+            // reset animasi biar bisa diulang  
+            black.classList.remove("scaleblack-open", "scaleblack-close");  
+            white.classList.remove("scalewhite-open", "scalewhite-close");  
+      
+            void black.offsetWidth; // reflow supaya animasi bisa jalan lagi  
+            void white.offsetWidth;  
+      
+            // buka → hitam mengecil, putih membesar jadi kotak  
+            black.classList.add("scaleblack-open");  
+            white.classList.add("scalewhite-open");  
+      
+            document.getElementById("sensormenu0").style.display = "none";  
+            document.getElementById("sensormenu1").style.display = "block";  
+            document.getElementById("menulogin").style.display = "block";  
+        }  
+      
+        function menu1() {  
+            // reset animasi biar bisa diulang  
+            black.classList.remove("scaleblack-open", "scaleblack-close");  
+            white.classList.remove("scalewhite-open", "scalewhite-close");  
+      
+            void black.offsetWidth;   
+            void white.offsetWidth;  
+      
+            // tutup → hitam membesar lagi, putih mengecil jadi bulat  
+            black.classList.add("scaleblack-close");  
+            white.classList.add("scalewhite-close");  
+      
+            document.getElementById("sensormenu0").style.display = "block";  
+            document.getElementById("sensormenu1").style.display = "none";  
+            document.getElementById("daftarmenu").style.display = "none";  
+        }  
+      
+        function showbutt() {  
+            var un = document.getElementsByName("un")[0].value.trim();  
+            var pw = document.getElementsByName("pw")[0].value.trim();  
+      
+            if (un !== "" && pw !== "") {  
+                document.getElementById("buttlog").style.display = "block";  
+                document.getElementById("buttreset").style.display = "block";  
+            } else {  
+                document.getElementById("buttlog").style.display = "none";  
+                document.getElementById("buttreset").style.display = "none";  
+            }  
+        }  
+      
+        function submitdev() {  
+            var usnm = document.getElementsByName("un")[0].value.trim();  
+            var pass = document.getElementsByName("pw")[0].value.trim();  
+            var usnmbenar = 'kakikanan';  
+            var passbenar = 'devmod1234';  
+      
+            if (usnm === usnmbenar && pass === passbenar) {  
+                document.getElementById('pagedev').style.display = "block";  
+                document.getElementById('page1').style.display = "none";  
+            } else if (usnm !== usnmbenar) {  
+                alert('username salah');  
+            } else if (pass !== passbenar) {  
+                alert('password salah');  
+            }  
+        }  
+      
+        function resetdev() {  
+            // Bersihkan semua input  
+            document.getElementsByName("un")[0].value = "";  
+            document.getElementsByName("pw")[0].value = "";  
+      
+            // Sembunyikan tombol login & reset  
+            document.getElementById("buttlog").style.display = "none";  
+            document.getElementById("buttreset").style.display = "none";  
+      
+            // Kalau mau panggil function render  
+            render();  
+      
+            // Contoh render simple (biar nggak error kalau dipanggil)  
+            function render() {  
+                alert('reset button telah membersihkan input anda.')  
+            }  
+        }  
+      
+        function tutupdevlog() {  
+            document.getElementsByClassName('arealogindev')[0].style.display = 'none';  
+            document.getElementById('closedevlog').style.display = 'none';  
+            document.getElementById('devlogabout').style.display = 'none';  
+        }  
+      
+        function wa() {  
+            window.location.href = "https://wa.me/+6285881330296?text=Halo%20saya%20tertarik%20dengan%20produk%20Anda";  
+        }  
+      
+        function email() {  
+            window.location.href = "mailto:contactavestudiocs@gmail.com?subject=Halo%20Saya%20tertarik&body=Halo,%20saya%20tertarik%20dengan%20produk%20Anda.";  
+        }  
+      
+        function dc() {  
+            window.location.href = "https://discord.gg/VWe5vZSx";  
+        }  
+      
+        function ig() {  
+            window.location.href = "https://www.instagram.com/ave.studio_01?igsh=MWRub2N6NDExZmt1Zw==";  
+        }  
+    </script>  
+</body>
 </html>
+
