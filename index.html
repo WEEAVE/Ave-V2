@@ -1,353 +1,648 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AVE Studio</title>
-<style>
-    /* ========= GLOBAL ========= */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-    * {
-        box-sizing: border-box;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AVE Studio</title>
+
+  <style>
+    /* ========== 1. GLOBAL STYLE ========== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #1e1e2f, #121221, #000);
-        background-attachment: fixed;
-        color: white;
-        overflow-x: hidden;
-        scroll-behavior: smooth;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #121221, #000);
+      color: white;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
     }
-    h1, h2, h3 { margin: 0; }
+    h1,h2,h3 { margin: 0; }
+    p { line-height: 1.6; }
 
-    /* ========= HERO / BANNER ========= */
-    .banner {
-        position: relative;
-        width: 100%;
-        height: 450px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: radial-gradient(circle at center, rgba(255,255,255,0.1), transparent 70%);
-        overflow: hidden;
+    .page { display: none; opacity: 0; transition: opacity 0.6s ease; }
+    .page.active { display: block; opacity: 1; }
+
+    /* ========== 2. NAVBAR / MENU ========== */
+    .menu-toggle {
+      position: fixed;
+      top: 20px; right: 25px;
+      width: 60px; height: 60px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: 0.3s;
+      z-index: 1000;
+    }
+    .menu-toggle:hover {
+      box-shadow: 0 0 20px rgba(106,17,203,0.6);
+      transform: scale(1.05);
+    }
+    .menu-toggle div {
+      width: 35px; height: 4px;
+      background: white;
+      margin: 10px auto;
+      border-radius: 2px;
+      transition: 0.4s;
+    }
+    .menu-toggle.active div:nth-child(1) {
+      transform: rotate(50deg) translate(13px,13px);
+    }
+    .menu-toggle.active div:nth-child(2) { opacity: 0; }
+    .menu-toggle.active div:nth-child(3) {
+      transform: rotate(-50deg) translate(7px, -7px);
     }
 
-    .ave {
-        width: 200px;
-        height: 200px;
-        object-fit: contain;
-        animation: float 4s ease-in-out infinite;
-        filter: drop-shadow(0 0 30px rgba(255,255,255,0.3));
+    .menu-container {
+      position: fixed;
+      top: 90px; right: 25px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(106,17,203,0.3);
+      width: 180px;
+      display: none;
+      flex-direction: column;
+      z-index: 999;
+      animation: fadeIn 0.4s ease;
+    }
+    .menu-container.show { display: flex; }
+
+    .menu-item {
+      padding: 12px 15px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: 0.3s;
+    }
+    .menu-item:last-child { border-bottom: none; }
+
+    .menu-item:hover, .menu-item.active {
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(106,17,203,0.4);
     }
 
+    /* ======= TAMBAHAN: Submenu Learning ===== */
+    .submenu-learning {
+      display: none;
+      flex-direction: column;
+      margin-left: 15px;
+      margin-top: 5px;
+    }
+    .submenu-learning .menu-item {
+      font-size: 14px;
+      padding: 8px 15px;
+    }
+    .submenu-learning.show {
+      display: flex;
+    }
+
+    /* ========== 3. HOME ========== */
+    .home {
+      text-align: center;
+      padding-top: 120px;
+    }
+    .home img {
+      width: 180px;
+      animation: float 4s ease-in-out infinite;
+      cursor: pointer;
+    }
     @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-15px); }
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .title {
+      margin-top: 20px;
+      font-size: 32px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 1s ease;
     }
 
-    #loginmenu {
-        position: absolute;
-        top: 30px;
-        right: 50px;
-        font-weight: bold;
-        padding: 10px 25px;
-        border-radius: 30px;
-        font-size: 20px;
-        background: linear-gradient(45deg, #6a11cb, #2575fc);
-        color: white;
-        box-shadow: 0 0 15px rgba(37,117,252,0.5);
-        cursor: pointer;
-        transition: 0.3s ease;
-    }
-    #loginmenu:hover {
-        transform: scale(1.08);
-        box-shadow: 0 0 30px rgba(106,17,203,0.8);
-    }
+    /* ========== 4. ABOUT ========== */
+    .about { padding: 100px 20px; text-align: center; }
 
-    /* ========= CONTENT ========= */
-    #page1 {
-        padding: 60px 20px;
-        max-width: 1100px;
-        margin: auto;
-    }
-
-    .txtpage1 {
-        background: rgba(255,255,255,0.1);
-        border-radius: 20px;
-        padding: 25px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 0 20px rgba(255,255,255,0.1);
-        font-size: 18px;
-        line-height: 1.8;
-        margin-bottom: 50px;
-        animation: fadeIn 1s ease;
-    }
-
+    /* ========== 5. LAYANAN ========== */
+    .layanan { padding: 80px 20px; max-width: 1000px; margin: auto; }
     .service-card {
-        margin-bottom: 40px;
-        padding: 25px;
-        border-radius: 20px;
-        background: rgba(255,255,255,0.08);
-        backdrop-filter: blur(6px);
-        box-shadow: 0 0 25px rgba(255,255,255,0.05);
-        transition: 0.3s ease;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.05);
+      transition: 0.3s;
     }
-
     .service-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 0 35px rgba(106,17,203,0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(106,17,203,0.3);
+    }
+    .coming-soon {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 22px;
+      color: #ccc;
+      animation: blink 2s infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.3; }
     }
 
-    .service-card h2, .service-card h3, .service-card h1 {
-        background: linear-gradient(45deg, #6a11cb, #2575fc);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 10px;
+    /* ========== 6. LEARNING ========== */
+    .learning { padding: 100px 20px; text-align: center; }
+
+    /* ========== 7. CONTACT ========== */
+    .contact {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+    .contact-buttons div {
+      padding: 12px 25px;
+      border-radius: 25px;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      box-shadow: 0 0 20px rgba(106,17,203,0.4);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .contact-buttons div:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 35px rgba(106,17,203,0.8);
     }
 
-    /* ========= CONTACT ========= */
-    .contact_usp1 {
-        text-align: center;
-        background: linear-gradient(180deg, transparent, #121221, #0a0a12);
-        padding: 60px 20px;
-        border-top: 2px solid rgba(255,255,255,0.1);
-        margin-top: 60px;
+    /* ========== 8. LOGIN ========== */
+    .login {
+      padding: 100px 20px;
+      text-align: center;
     }
-
-    .contact_usp1 h1 {
-        background: linear-gradient(45deg, #6a11cb, #2575fc);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 15px;
-    }
-
-    .contact_buttons {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 20px;
-    }
-
-    .contact_buttons div {
-        width: 200px;
-        height: 50px;
-        line-height: 50px;
-        border-radius: 30px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.4s ease;
-        background: linear-gradient(45deg, #6a11cb, #2575fc);
-        color: white;
-        box-shadow: 0 0 20px rgba(106,17,203,0.3);
-    }
-    .contact_buttons div:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 40px rgba(106,17,203,0.7);
-    }
-
-    /* ========= LOGIN ========= */
-    #loginpage {
-        display: none;
-        margin-top: 80px;
-        text-align: center;
-    }
-
     fieldset {
-        width: 320px;
-        margin: auto;
-        border: none;
-        border-radius: 20px;
-        background: rgba(255,255,255,0.08);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 0 20px rgba(255,255,255,0.1);
-        padding: 30px;
-        animation: fadeIn 0.8s ease;
+      width: 320px;
+      margin: auto;
+      border: none;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+      padding: 30px;
     }
-
     legend {
-        background: linear-gradient(45deg, #6a11cb, #2575fc);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: bold;
-        font-size: 22px;
-        margin-bottom: 15px;
+      font-size: 22px;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
     }
-
     input {
-        width: 85%;
-        margin-top: 10px;
-        padding: 10px;
-        border-radius: 10px;
-        border: none;
-        outline: none;
-        background: rgba(255,255,255,0.1);
-        color: white;
-        font-size: 16px;
+      width: 85%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      outline: none;
     }
-
     button {
-        display: none;
-        margin: 10px 8px;
-        padding: 10px 25px;
-        border: none;
-        border-radius: 30px;
-        font-weight: bold;
-        background: linear-gradient(45deg, #6a11cb, #2575fc);
-        color: white;
-        cursor: pointer;
-        box-shadow: 0 0 15px rgba(106,17,203,0.4);
-        transition: 0.3s ease;
+      display: none;
+      margin: 10px;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(106,17,203,0.3);
+      transition: 0.3s;
     }
-
     button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 35px rgba(106,17,203,0.8);
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(106,17,203,0.7);
+    }
+    table {
+        text-align: center;
     }
 
-    /* ========= ANIMATION ========= */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-</style>
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
 </head>
+
 <body>
+  <!-- Menu Toggle Button -->
+  <div class="menu-toggle" onclick="toggleMenu(this)">
+    <div></div><div></div><div></div>
+  </div>
 
-    <div class="banner">
-        <img src="AVE.png" alt="logo AVE" class="ave">
-        <div id="loginmenu" onclick="loginmenu()">LOGIN</div>
+  <!-- Menu Box / Navigation -->
+  <div class="menu-container" id="menuBox">
+    <div class="menu-item active" onclick="showPage('home', this)">🏠 Home</div>
+    <div class="menu-item" onclick="showPage('about', this)">ℹ️ About</div>
+    <div class="menu-item" onclick="showPage('layanan', this)">⚙️ Layanan</div>
+    <div class="menu-item" onclick="toggleSubmenu()">💻 Learning ▼</div>
+    <!-- Tambahan: submenu Learning -->
+    <div class="submenu-learning" id="submenuLearning">
+      <div class="menu-item" onclick="showPage('bimbelprogdas', this)">📘 Pemrograman Dasar</div>
+      <div class="menu-item" onclick="showPage('bimbelwebdasar', this)">🎨 Web Desain Dasar</div>
     </div>
+    <div class="menu-item" onclick="showPage('contact', this)">✉️ Contact</div> 
+  </div>
 
-    <div id="page1">
-        <div class="txtpage1">
-            selamat datang di website ave.<br>
-            anda bisa melihat beberapa layanan yang kami berikan.<br>
-            untuk saat ini kami menyediakan beberapa jasa saja.<br>
-            untuk kedepan nya kami akan meninngkatkan kualitas dari ave studio<br>
-            agar lebih mudah dijangkau dan website yang mudah dioperasikan<br><br>
-            berikut adalah beberapa jasa yang kami sediakan:
-            <ol type="A">
-                <li>VIDEO GAMES:
-                    <ul><li>Top Up Video Game</li></ul>
-                </li><br>
-                <li>BIMBEL ONLINE:
-                    <ul>
-                        <li>Bahasa Pemrograman Dasar</li>
-                        <li>Web Desain Dasar</li>
-                    </ul>
-                </li><br>
-                <li>OTHER:
-                    <ul><li>Pembuatan Website</li></ul>
-                </li>
-            </ol>
-        </div>
-
-        <div class="service-card">
-            <h2>VIDEO GAME TOP-UP</h2>
-            kami menyediakan top-up di beberapa video game.<br>
-            seperti <b>MLBB, PUBGM, FF/MAX, ROBLOX</b> dan sebagainya...<br>
-            kami akan memeberikan kepercayaan kepada pelanggan<br>
-            tanpa memberikan dampak negatif sedikitpun.<br>
-            kami memiliki prinsip jujur dan penanggung jawab jika ada masalah yang berasal dari store kami.<br>
-            dan kami juga menjamin <i style="color: lightgreen;">100%</i> aman dan terpercaya.
-        </div>
-
-        <div class="service-card">
-            <h3>BAHASA PEMROGRAMAN DASAR</h3>
-            tidak hanya tentang video game.<br>
-            kami juga ingin memberikan pendidikan kepada semua orang tanpa terkecuali.<br>
-            tanpa minimal usia, dan juga tanpa batasan usia.<br>
-            karena tidak ada kata terlambat dalam menuntut ilmu.<br>
-            kami juga menyediakan bimbel bahasa pemrograman secara online<br>
-            dengan berbagai metode seperti <b>chat, call, google meet, voice discord</b> dan lainnya.<br><br>
-            <h3>APA YANG AKAN DIPELAJARI?</h3>
-            kita akan mengajari bahasa pemrograman dari nol(0)<br>
-            mulai dari pengenalan bahasa, logika, aritmatika, dan lainnya.
-        </div>
-
-        <div class="service-card">
-            <h1>WEB DESAIN DASAR</h1>
-            hampir sama dengan bahasa pemrograman dasar, hanya menggunakan bahasa yang berbeda.<br>
-            bahasa di dunia pemrograman itu banyak sekali.<br>
-            dan yang kita gunakan adalah bahasa yang paling mudah difahami.<br><br>
-            <h3>APA ITU BIMBEL WEB DESAIN?</h3>
-            kami akan mengajari cara membuat web dan hal-hal seputar web.<br>
-            tidak cuma bahasa pemrograman saja, tapi juga hal-hal lain.
-        </div>
-
-        <div class="service-card">
-            <h1>PEMBUATAN WEBSITE</h1>
-            kami juga menyediakan pembuatan WebSite.<br>
-            kami menerima segala macam jenis keinginan website anda:<br>
-            <b>BISNIS, BELAJAR/MENGAJAR, ARTIKEL</b>, dan masih banyak lagi.<br><br>
-        </div>
-
-        <div class="contact_usp1">
-            <h1>HUBUNGI KAMI</h1>
-            informasi lebih lanjut: DM kami!
-            <div class="contact_buttons">
-                <div class="wabutt" onclick="wa()">WHATSAPP</div>
-                <div class="emailbutt" onclick="email()">EMAIL</div>
-                <div class="dcbutt" onclick="dc()">DISCORD</div>
-                <div class="igbutt" onclick="ig()">INSTAGRAM</div>
-            </div>
-        </div>
+  <!-- Home Page -->
+  <div id="home" class="page active home">
+    <img src="AVE.png" alt="AVE logo" id="avelogo">
+    <div class="title" id="changingTitle">AVE Studio</div>
+    <p>Selamat datang di website AVE Studio.<br>
+      kami menyediakan berbagai macam layanan, dan penawaran menarik.<br>
+      pelayanan yang menyenangkan, amanah dan bertanggung jawab.<br>
+      kami menjamin <b><i>100%</i></b> terpercaya!!</p>
+    <div class="contact-buttons" style="margin-top:40px;">
+      <div onclick="showPage('contact')">Hubungi Kami</div>
     </div>
+  </div>
 
-    <div id="loginpage">
-        <fieldset>
-            <legend>LOGIN</legend>
-            <label>Username</label><br>
-            <input name="un" oninput="showbutt()" type="text" placeholder="Masukkan username"><br>
-            <label>Password</label><br>
-            <input name="pw" oninput="showbutt()" type="password" placeholder="Masukkan password"><br>
-            <div>
-                <button id="buttlog" onclick="submitdev()">Apply</button>
-                <button id="buttreset" onclick="resetdev()">Reset</button>
-            </div>
+  <!-- About Page -->
+  <div id="about" class="page about">
+    <h1>Tentang AVE Studio</h1><br>
+    <p>AVE Studio berfokus pada layanan digital seperti pengembangan web, bimbingan belajar daring, dan layanan kreatif.
+      Kami selalu berinovasi agar pengguna merasakan kemudahan dalam layanan kami.</p>
+  </div>
+
+  <!-- Layanan Page -->
+  <div id="layanan" class="page layanan">
+    <div class="service-card">
+      <h2>Top-Up Game</h2>
+      <p>Kami menyediakan layanan top-up game seperti MLBB, PUBGM, FF/MAX, ROBLOX dan lainnya.</p>
+    </div>
+    <div class="service-card">
+        <h2>Top-Up E-Wallet</h2>
+        <p>Kami juga menyediakan layanan top-up e-wallet seperti dana, gopay dan semacam nya.</p>
+    </div>
+    <div class="service-card">
+        <h2>Isi Pulsa</h2>
+        <p>pengen isi pulsa tapi males keluar rumah? isi di sini aja!!</p>
+    </div>
+    <div class="service-card">
+      <h2>Bimbel Pemrograman Dasar</h2>
+      <p>Mengajarkan logika dasar, algoritma, dan bahasa pemrograman dasar dari nol.</p>
+    </div>
+    <div class="service-card">
+      <h2>Web Desain Dasar</h2>
+      <p>Mempelajari HTML, CSS, dan konsep desain web responsif.</p>
+    </div>
+    <div class="service-card">
+      <h2>Pembuatan Website</h2>
+      <p>Menerima pembuatan website untuk bisnis, portofolio dan edukasi.</p>
+    </div>
+    <div class="coming-soon">Coming Soon...</div>
+  </div>
+
+  <!-- Learning Page (utama) -->
+  <div id="learning" class="page learning">
+    <h1>Learning Section</h1>
+    <p>Pilih materi pembelajaran yang kamu minati:</p>
+    <div class="contact-buttons" style="margin-top:40px;">
+      <div onclick="showPage('bimbelprogdas')">Pemrograman Dasar</div>
+      <div onclick="showPage('bimbelwebdasar')">Web Desain Dasar</div>
+    </div>
+  </div>
+
+  <!-- Subpage: Bimbel Pemrograman Dasar -->
+  <div id="bimbelprogdas" class="page learning">
+    <h1>Bimbel Pemrograman Dasar</h1>
+    <fieldset>
+        <legend>Pengenalan</legend>
+        <p>Bahasa pemrograman adalah bahasa komputer yang digunakan untuk berbagai hal.
+        <br>contoh: memebuat WebSie, membuat aplikasi, membuat game, dan masih banyak lagi.
+        <br>kenapa harus ada bahasa pemrograman? bahasa gampang nya itu, komputer itu adalah sebuah alat yang sangat pintar, tapi pintar nya lugu.
+        <br>dalam artian komputer tidak melakukan segala hal apapun itu kalau tidak diberikan perintah, dan bahasa untuk berkomunikasi nya adalah, bahasa pemrograman ini.
+        <br><br>
+        Di bimbel bahasa pemrograman ini kita akan belajar bahasa pemrograman yang bernama python.
+        <br>apa itu python? kenapa harus python?
+        <br>jadi didalam dunia bahasa pemrograman komputer itu, ada banyak sekali bahasa pemrograman. tidak cuma satu, tapi ada banyak sekali.
+        <br>dan salah satunya adalah python ini.
+        <br>kita belajar python dikarenakan bahasa yang paling mudah untuk belajar bahasa pemrograman.
+        <br>bahasa nya simpel dan tidak terlalu rumit.</p>
+    </fieldset>
+    <fieldset>
+        <legend>cara typing python</legend>
+        <table border="1" cellpadding="8">
+            <tr>
+                <th colspan="3">APK/WEB Yang disarankan</th>
+            </tr>
+            <tr>
+                <th>perangkat</th>
+                <th>aplikasi</th>
+                <th>website</th>
+            </tr>
+            <tr>
+                <td>mobile</td>
+                <td>pydroid3, pycode, Acode</td>
+                <td>VScode Online, python playground.com, boot.dev</td>
+            </tr>
+            <tr>
+                <td>desktop</td>
+                <td>VScode</td>
+                <td>VScode online</td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset align="left">
+        <legend>1.Print</legend>
+        <p>apa itu print?
+        <br>dimateri pertama ini kita akan belajar, caranya mnampilakan sesuatau ke layar.
+        <br>bagaimana caranya? ya menggunakan print ini.
+        <br><br>
+        <b>CONTOH:</b>
+        <br><span style="color: blue;">print</span>(<span style="color: green;">"hallo"</span>)</p>
+        <br><br>
+         <i style="color: yellow;">yang ditampilkan:</i>
+         <br>hallo
+        <br><br>
+        yok kita bahas satu per satu bagian-bagian nya!
+        <br>1.print = code untuk menampilkan, sesuai nama nya print atau kalau dalam bahasa indonesia itu "cetak".
+        <br>2.() = kurung ini digunakan untuk area print nya, didalem sini adalah apa yang akan kita tampilkan.
+        <br>3.""/'' = itu nama nya string, apa itu string?<br><br>
+        <fieldset align="left">
+            <legend>1.1 jenis-jenis variable</legend>
+            <p>apa itu variable? (akan kita bahas di materi 2)
+            <br>kita mengenal jenis-jenis variable aja terlebih dahulu.
+            <ul type="disc">
+                <li>string atau bahasa profesional nya str, itu adalah teks bebas, jadi jika mengetik apa saja di dalam string tipe nya akan tetap di anggap teks.</li><br>
+                <li>int atau integer, adalah bilangan bulat sebuah angka. contoh: 1, 2, 3, 4, dan seterusnya.</li><br>
+                <li>float adalah bilangan desimal yang selalu ada koma nya, contoh jika mengetik 1 maka munculnya 1.0 ituah float.</li><br>
+            </ul>
+            <br>jadi, apakah kalian sudah tau apa saja sih jenis-jenis tipe variable?</p>
         </fieldset>
+        <br>nah setelah mengenal jenis-jenis tipe variable apakah kalian sudah tau semua fungsi di dalam komponen print?
+    </fieldset><!-- 1 PRINT -->
+    <fieldset align='left'>
+        <legend>2.Variable</legend>
+        <p>apa itu Variable?
+        <br>bahasa gampang nya, itu adalah tempat menyimpan data atau nilai.
+        <br><br>
+        <b>CONTOH:</b>
+        <br>A <span style="color: orange;">= </span> 5</p>
+        <br><span style="color: blue;">print</span>(A)
+        <br><br>
+        <i style="color: yellow;">yang ditampilkan:</i>
+        <br>5
+        <br><br>
+        mari kita bahas Variable ini!!
+        <br>jadi cara bacanya adalah = A adalah 5
+        <br>A disebut variable, karena kita menyimpan angka 5 di situ.
+        <br>dan cara memunculkannya adalah menggunakan print.
+        <br>tapi, apakah kalian tau apa yang beda di print kali ini?
+        <br>prbedaan di print saat ini yaitu, tidak ada ("")
+        <br>string, karena seperti yang diketahui sebelumnya, string itu akan mengubah semuanya menjadi teks biasa.
+        <br>sedangkan jika tidak ada string, berarti akan disebut selain string.
+        <br>maksudnya selain string itu bagaimana? ya berarti bukan disebut sebagai teks biasa, melainkan sebagai code.
+    </fieldset><!-- 2 VARIABLE -->
+    <fieldset align="left">
+        <legend>3.operasi</legend>
+        <p>biasanya, orang-orang bilang python itu identik dengan matematika dan logika.
+        <br>nah, kali ini kita akan belajar matematika dasar nih di python.
+        <br>kita akan belajar tentang aritmatika.
+        <br>mungkin ada yang sudah tau apa itu aritmatika dan ada yang belum tau.
+        <br>tapi saat ini kita tidak perlu harus tau ataupun takut karena belum tau.
+        <br><br>
+        <b>CONTOH:</b>
+        <br><span style="color: blue">print</span>(5 <span style="color: orange">+ </span>3)
+        <br><br>
+        <i style="color: yellow;">yang ditampilkan:</i>
+        <br>8
+        <br><br>
+        begitu juga yang lainnya.
+        <br>tapi, apakah cuma ditambah saja? tentu tidak.
+        <br>berikut tabel penjelas nya:
+        <table border="1" cellpadding="5px">
+            <tr>
+                <th colspan="4">Aritmatika</th>
+            </tr>
+            <tr>
+                <th>angka pertama</th>
+                <th>operasi aritmatika</th>
+                <th>angka kedua</th>
+                <th>hasil</th>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>+
+                <br>(ditambah)</td>
+                <td>5</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>-
+                <br>(dikurangi)</td>
+                <td>5</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>*
+                <br>(dikali)</td>
+                <td>5</td>
+                <td>25</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>/
+                <br>(dibagi)</td>
+                <td>2</td>
+                <td>2.5</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>//
+                <br>(pembagian bulat)</td>
+                <td>2</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>%
+                <br>(sisa bagi)</td>
+                <td>2</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>**
+                <br>(pangkat)</td>
+                <td>5</td>
+                <td>3125</td>
+            </tr>
+        </table><br><br>
+        <table border="1" cellpadding="5px">
+            <tr>
+                <th colspan="4">Perbandingan</th>
+            </tr>
+            <tr>
+                <th>angka pertama</th>
+                <th>operasi perbandingan</th>
+                <th>angka kedua</th>
+                <th>hasil</th>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>==
+                <br>(sama dengan)</td>
+                <td>5</td>
+                <td>true/benar</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>!=
+                <br>(tidak sama dengan)</td>
+                <td>5</td>
+                <td>false/salah</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>>
+                <br>(lebih besar dari)</td>
+                <td>5</td>
+                <td>false/salah</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td><
+                <br>(lebih kecil dari)</td>
+                <td>5</td>
+                <td>false/salah</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>>=
+                <br>(lebih besar atau sama dengan)</td>
+                <td>5</td>
+                <td>true/benar</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td><=
+                <br>(lebih kecil atau sama dengan)</td>
+                <td>5</td>
+                <td>true/benar</td>
+            </tr>
+        </table></p>
+    </fieldset>
+    <div class="coming-soon">Materi Baru sedang Dalam Pengembangan!!</div>
+    <div class="contact-buttons" style="margin-top:40px;">
+      <div onclick="showPage('learning')">⬅️ Kembali ke Learning</div>
     </div>
+  </div>
 
-    <script>
-        function showbutt() {
-            const un = document.getElementsByName("un")[0].value.trim();
-            const pw = document.getElementsByName("pw")[0].value.trim();
-            document.getElementById("buttlog").style.display = un && pw ? "inline-block" : "none";
-            document.getElementById("buttreset").style.display = un && pw ? "inline-block" : "none";
-        }
+  <!-- Subpage: Bimbel Web Desain Dasar -->
+  <div id="bimbelwebdasar" class="page learning">
+    <h1>Bimbel Web Desain Dasar</h1>
+    <p>Materi seperti HTML, CSS, dan dasar desain web akan tersedia di sini.</p>
+    <div class="coming-soon">Coming Soon...</div>
+    <div class="contact-buttons" style="margin-top:40px;">
+      <div onclick="showPage('learning')">⬅️ Kembali ke Learning</div>
+    </div>
+  </div>
 
-        function submitdev() {
-            const usnm = document.getElementsByName("un")[0].value.trim();
-            const pass = document.getElementsByName("pw")[0].value.trim();
-            const daftarUser = ['admin', 'dev', 'setting'];
-            const passbenar = 'rptxhq25';
-            if (daftarUser.includes(usnm) && pass === passbenar) {
-                alert("Login berhasil!");
-            } else {
-                alert("Username atau password salah!");
-            }
-        }
+  <!-- Contact Page -->
+  <div id="contact" class="page contact">
+    <h1>Hubungi Kami</h1>
+    <div class="contact-buttons">
+      <div onclick="wa()">WHATSAPP</div>
+      <div onclick="email()">EMAIL</div>
+      <div onclick="dc()">DISCORD</div>
+      <div onclick="ig()">INSTAGRAM</div>
+    </div>
+  </div>
 
-        function resetdev() {
-            document.getElementsByName("un")[0].value = "";
-            document.getElementsByName("pw")[0].value = "";
-            document.getElementById("buttlog").style.display = "none";
-            document.getElementById("buttreset").style.display = "none";
-        }
+  <!-- Login Page -->
+  <div id="login" class="page login">
+    <fieldset>
+      <legend>LOGIN</legend>
+      <label>Username</label><br>
+      <input name="un" type="text" placeholder="Masukkan username" oninput="showButtons()"><br>
+      <label>Password</label><br>
+      <input name="pw" type="password" placeholder="Masukkan password" oninput="showButtons()"><br>
+      <button id="buttlog" onclick="submitdev()">Apply</button>
+      <button id="buttreset" onclick="resetdev()">Reset</button>
+    </fieldset>
+  </div>
 
-        function loginmenu() {
-            document.getElementById("loginmenu").style.display = "none";
-            document.getElementById("loginpage").style.display = "block";
-            document.getElementById("page1").style.display = "none";
-        }
+  <script>
+    // Toggle menu show/hide
+    function toggleMenu(btn) {
+      btn.classList.toggle('active');
+      document.getElementById('menuBox').classList.toggle('show');
+    }
+    // Toggle submenu Learning show/hide
+    function toggleSubmenu() {
+      document.getElementById('submenuLearning').classList.toggle('show');
+    }
+    // Menampilkan halaman sesuai menu klik
+    function showPage(id, elem) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
 
-        function wa() { window.location.href = "https://wa.me/+6285881330296"; }
-        function email() { window.location.href = "mailto:contactavestudiocs@gmail.com"; }
-        function dc() { window.location.href = "https://discord.gg/VWe5vZSx"; }
-        function ig() { window.location.href = "https://www.instagram.com/ave.studio_01"; }
-    </script>
+      // Aktifkan menu item highlight
+      document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+      if(elem) elem.classList.add('active');
 
+      // tutup menu & tombol toggle
+      document.getElementById('menuBox').classList.remove('show');
+      document.querySelector('.menu-toggle').classList.remove('active');
+    }
+    // Fungsi tombol kontak
+    function wa(){window.location.href = 'https://wa.me/+6285881330296';}
+    function email(){window.location.href = 'mailto:contactavestudiocs@gmail.com';}
+    function dc(){window.location.href = 'https://discord.gg/VWe5vZSx';}
+    function ig(){window.location.href = 'https://www.instagram.com/ave.studio_01';}
+
+    // Fungsi login show tombol / validasi
+    function showButtons(){
+      const un = document.getElementsByName('un')[0].value.trim();
+      const pw = document.getElementsByName('pw')[0].value.trim();
+      document.getElementById('buttlog').style.display = (un && pw) ? 'inline-block' : 'none';
+      document.getElementById('buttreset').style.display = (un && pw) ? 'inline-block' : 'none';
+    }
+    function submitdev(){
+      const usnm = document.getElementsByName('un')[0].value.trim();
+      const pass = document.getElementsByName('pw')[0].value.trim();
+      const daftarUser = ['admin','dev','setting'];
+      const passbenar = 'rptxhq25';
+      alert(daftarUser.includes(usnm) && pass === passbenar ? 'Login berhasil!' : 'Username atau password salah!');
+    }
+    function resetdev(){
+      document.getElementsByName('un')[0].value = '';
+      document.getElementsByName('pw')[0].value = '';
+      showButtons();
+    }
+
+    // Animasi judul berganti
+    const titles = ["AVE Studio","AVES","AVER","WEEAVE"];
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % titles.length;
+      document.getElementById('changingTitle').textContent = titles[idx];
+    }, 2000);
+
+    // Easter egg: klik logo 5x untuk buka login
+    let clickCount = 0;
+    document.getElementById('avelogo').addEventListener('click', () => {
+      clickCount++;
+      if(clickCount >=5){
+        showPage('login');
+        clickCount = 0;
+      }
+    });
+  </script>
 </body>
 </html>
