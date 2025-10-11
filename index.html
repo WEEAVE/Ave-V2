@@ -320,7 +320,7 @@
     <fieldset>
         <legend>Pengenalan</legend>
         <p>Bahasa pemrograman adalah bahasa komputer yang digunakan untuk berbagai hal.
-        <br>contoh: memebuat WebSite, membuat aplikasi, membuat game, dan masih banyak lagi.
+        <br>contoh: memebuat WebSie, membuat aplikasi, membuat game, dan masih banyak lagi.
         <br>kenapa harus ada bahasa pemrograman? bahasa gampang nya itu, komputer itu adalah sebuah alat yang sangat pintar, tapi pintar nya lugu.
         <br>dalam artian komputer tidak melakukan segala hal apapun itu kalau tidak diberikan perintah, dan bahasa untuk berkomunikasi nya adalah, bahasa pemrograman ini.
         <br><br>
@@ -331,7 +331,7 @@
         <br>kita belajar python dikarenakan bahasa yang paling mudah untuk belajar bahasa pemrograman.
         <br>bahasa nya simpel dan tidak terlalu rumit.</p>
     </fieldset>
-    <fieldset>
+    <fieldset align="left">
         <legend>cara typing python</legend>
         <table border="1" cellpadding="8">
             <tr>
@@ -353,6 +353,10 @@
                 <td>VScode online</td>
             </tr>
         </table>
+        <p>setelah menginstal/membuka platform untuk typing python.
+        <br>jangan lupa untuk membuat file terlebih dahulu, dengan format <span style="color: yellow">.py</span>
+        <br>contoh: belajar.py
+        <br>jika format selain itu maka kita tidak akan bisa typing code python.</p>
     </fieldset>
     <fieldset align="left">
         <legend>1.Print</legend>
@@ -534,8 +538,48 @@
                 <td>5</td>
                 <td>true/benar</td>
             </tr>
-        </table></p>
-    </fieldset>
+        </table>
+        <br>nah, jadi itulah beberapa operasi dari bahasa pemrograman python!!
+        <br>jadi, sampai sini apakah kalian sudah faham tentang operasi?</p>
+    </fieldset><!-- 3 OPERASI -->
+    <fieldset align="left">
+        <legend>4.Input</legend>
+        <p>dimateri ini adalah cara kita membuat input!
+        <br>mungkin beberapa dari kalian bingung, atau ada yang belum tau.
+        <br>input itu adalah suatu kolom yang bisa dimasukkan value/nilai.
+        <br>contoh simpel nya, saat kalian mengetik di pencarian.
+        <br>nah di area pencarian itukan kita bisa mengetik.
+        <br>nah itulah yang disebut input! contoh keyboard yang digunakan mengetik memunculkan tulisan/ketikan yang kita ketik.
+        <br>tulisan/ketikan yang kita ketik itu dinamakan value/nilai.
+        <br><br>
+        <b>CONTOH:</b>
+        <br><span style="color: blue">input</span>()
+        <br><br>
+        <i style="color: yellow;">yang ditampilkan:</i>
+        <br><input type="text" style="background: none;">
+        <br><br>
+        bingung apa yang ditampilkan? tidak ada yang ditampilkan?
+        <br>tenang, jika anda klik dibagian kosong itu, dia bisa anda berikan input nilai.
+        <fieldset>
+            <legend>4.1 Input dengan Variable</legend>
+            <p>mungkin kita pernah bertanya-tanya, apakah bisa hanya dengan code simple kita bisa menerima input dari user?
+            <br>maksudnya seperti di menu username, seperti menanyakan nama user lalu disapa dengan nama nya.
+            <br>tentu bisa dong!!
+            <br><br>
+            <b>CONTOH:</b><br>
+            nama <span style="color: orange">= </span><span style="color: blue">input</span>(<span style="color: green">"masukan nama: "</span>)
+            <br><span style="color: blue">print</span>(<span style="color: green">"hai!! "</span>, nama)
+            <br><br>
+            <i style="color: yellow;">yang ditampilkan:</i>
+            <br><span><label for="inputnm">masukan nama: </label><input name="inputnm" type="text" id="namainput" style="background: block; width: 50px;"><button style="display: block;" onclick="enter()">enter</button></span>
+            <div id="namaoutput"></div>
+            <br><br>
+            jadi penjelasanya adalah, nama adalah variable yang value/nilai nya dari hasil input.
+            <br>disaat setelah kita masukan nilai input nya, maka akan tercatat bahwa variable dari nama adalah input itu</p>
+            <br>dan saat di print variable nama, maka yang muncul nilai dari variable tersebut.
+        </fieldset>
+        sampai sini, apakah kalian sudah faham tentang materi input?</p>
+    </fieldset><!-- 4 INPUT -->
     <div class="coming-soon">Materi Baru sedang Dalam Pengembangan!!</div>
     <div class="contact-buttons" style="margin-top:40px;">
       <div onclick="showPage('learning')">⬅️ Kembali ke Learning</div>
@@ -642,6 +686,15 @@
         clickCount = 0;
       }
     });
+    
+    // INPUT MATERI BPD 
+    function enter() {
+        const inputnm = document.getElementById("namainput");
+        
+        const hasil = inputnm.value;
+        
+        document.getElementById("namaoutput").textContent = "hai!! " + hasil;
+    }
   </script>
 </body>
 </html>
